@@ -11,8 +11,11 @@ const initialState = {
     [0,1,0],
     [0,0,0],
   ],
+  steps: 0,
   errorMessage: ""
 }
+
+// { "x": 1, "y": 2, "steps": 3, "email": "lady@gaga.com" }
 
 export default class AppClass extends React.Component {
 
@@ -20,10 +23,11 @@ export default class AppClass extends React.Component {
 
   moveRight = () => {
 
-    let counter = this.state.x + 1;
+    let xCounter = this.state.x + 1;
+    let stepsCounter = this.state.steps + 1;
 
     if(this.state.x < 3){
-      this.setState({...this.state, x: counter})}
+      this.setState({...this.state, x: xCounter, steps: stepsCounter})}
     else {
       this.setState({...this.state, errorMessage: "You can't go right"})
     }
@@ -31,10 +35,11 @@ export default class AppClass extends React.Component {
 
   moveLeft = () => {
 
-    let counter = this.state.x - 1;
+    let xCounter = this.state.x - 1;
+    let stepsCounter = this.state.steps + 1;
 
     if(this.state.x > 1){
-      this.setState({...this.state, x: counter})}
+      this.setState({...this.state, x: xCounter, steps: stepsCounter})}
     else {
       this.setState({...this.state, errorMessage: "You can't go left"})
     }
@@ -42,10 +47,11 @@ export default class AppClass extends React.Component {
 
   moveUp = () => {
 
-    let counter = this.state.y + 1;
+    let yCounter = this.state.y + 1;
+    let stepsCounter = this.state.steps + 1;
 
     if(this.state.y < 3){
-      this.setState({...this.state, y: counter})}
+      this.setState({...this.state, y: yCounter, steps: stepsCounter})}
     else {
       this.setState({...this.state, errorMessage: "You can't go up"})
     }
@@ -53,10 +59,11 @@ export default class AppClass extends React.Component {
 
   moveDown = () => {
 
-    let counter = this.state.y - 1;
+    let yCounter = this.state.y - 1;
+    let stepsCounter = this.state.steps + 1;
 
     if(this.state.y > 1){
-      this.setState({...this.state, y: counter})}
+      this.setState({...this.state, y: yCounter, steps: stepsCounter})}
     else {
       this.setState({...this.state, errorMessage: "You can't go down"})
     }
@@ -68,7 +75,7 @@ export default class AppClass extends React.Component {
       <div id="wrapper" className={className}>
         <div className="info">
           <h3 id="coordinates">Coordinates ({this.state.x}, {this.state.y})</h3>
-          <h3 id="steps">You moved 0 times</h3>
+          <h3 id="steps">You moved {this.state.steps} times</h3>
         </div>
         <div id="grid">
           <div className="square"></div>
