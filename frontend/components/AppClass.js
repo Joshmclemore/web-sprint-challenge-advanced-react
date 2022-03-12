@@ -32,13 +32,34 @@ export default class AppClass extends React.Component {
   //   }
   // }
   
+  // MoveRight sets the grid to empty. I need a function after the if/else statement that sets the state of grid to be an array containing null expect where (ex: if(x === 1 && y === 1) {return ["B", null, null]})
+
+  // newArray = () => { 
+  //   if(this.state.x === 1 && this.state.y === 1) {return ["B", null, null, null, null, null, null, null, null]}
+  //   else if(this.state.x === 2 && this.state.y === 1) {return [null, "B", null, null, null, null, null, null, null]}
+  //   else if(this.state.x === 3 && this.state.y === 1) {return [null, null, "B", null, null, null, null, null, null]}
+  //   else if(this.state.x === 1 && this.state.y === 2) {return [null, null, null, "B", null, null, null, null, null]}
+  //   else if(this.state.x === 2 && this.state.y === 2) {return [null, null, null, null, "B", null, null, null, null]}
+  //   else if(this.state.x === 3 && this.state.y === 2) {return [null, null, null, null, null, "B", null, null, null]}
+  //   else if(this.state.x === 1 && this.state.y === 3) {return [null, null, null, null, null, null, "B", null, null]}
+  //   else if(this.state.x === 2 && this.state.y === 3) {return [null, null, null, null, null, null, null, "B", null]}
+  //   else if(this.state.x === 3 && this.state.y === 3) {return [null, null, null, null, null, null, null, null, "B"]}
+  //   else {return "not found"}
+  // }
+
+//  (1, 1) (2, 1) (3, 1)
+//  (1, 2) (2, 2) (3, 2)
+//  (1, 3) (2, 3) (3, 3)
+
   moveRight = () => {
 
     let xCounter = this.state.x + 1;
     let stepsCounter = this.state.steps + 1;
+    // let emptyGrid = [null, null, null, null, null, null, null, null, null]
+  
 
     if(this.state.x < 3){
-      this.setState({...this.state, x: xCounter, steps: stepsCounter, errorMessage: ""})}
+      this.setState({...this.state, x: xCounter, steps: stepsCounter, errorMessage: "",})}
     else {
       this.setState({...this.state, errorMessage: "You can't go right"})
     }
@@ -74,18 +95,12 @@ export default class AppClass extends React.Component {
     let stepsCounter = this.state.steps + 1;
     
     if(this.state.y > 1){
-      this.setState({...this.state, y: yCounter, steps: stepsCounter, errorMessage: ""})
-      window.localStorage.key('cat', 'dog')}
+      this.setState({...this.state, y: yCounter, steps: stepsCounter, errorMessage: ""})}
     else {
       this.setState({...this.state, errorMessage: "You can't go up"})
     }
   }
 
-
-
-  //onSubmit will be axios.post(url) and return a success or error message
-
-  //reset will set state back to initial state
 
   reset = () => {
     this.setState(initialState)
@@ -116,7 +131,7 @@ export default class AppClass extends React.Component {
       })
     })
   }
-// { "x": 1, "y": 2, "steps": 3, "email": "lady@gaga.com" }
+
 
   render() {
     const { className } = this.props
