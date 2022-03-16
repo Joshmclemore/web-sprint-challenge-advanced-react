@@ -143,10 +143,19 @@ componentDidUpdate(prevProps, prevState){
       console.log(res)
       this.setState({
         ...this.state,
+        errorMessage: "",
         successMessage: [...this.state.successMessage, res.data.message]
       })
     })
+    .catch(err => { console.log(err)
+      this.setState({
+        ...this.state,
+        successMessage: "",
+        errorMessage: err.response.data.message
+      })
+    })
   }
+
 
 
   render() {

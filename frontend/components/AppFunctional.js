@@ -104,15 +104,26 @@ export default function AppFunctional(props) {
       "email": state.email,
     }
     e.preventDefault()
+    // console.log(newInfo)
     axios.post(URL, newInfo)
     .then(res => {
       console.log(res)
       setState({
         ...state,
+        errorMessage: "",
         successMessage: [...state.successMessage, res.data.message]
       })
     })
+    .catch(err => { console.log(err)
+      setState({
+        ...state,
+        successMessage: "",
+        errorMessage: err.response.data.message
+      })
+    })
   }
+
+  /* ex. of newInfo: {x: 2, y: 1, steps: 1, email: 'bad@email'} */
 
 
 
