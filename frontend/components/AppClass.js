@@ -76,9 +76,9 @@ componentDidUpdate(prevProps, prevState){
   
 
     if(this.state.x < 3){
-      this.setState({...this.state, x: xCounter, steps: stepsCounter, errorMessage: ""})}
+      this.setState({...this.state, x: xCounter, steps: stepsCounter, errorMessage: "", successMessage: ""})}
     else {
-      this.setState({...this.state, errorMessage: "You can't go right"})
+      this.setState({...this.state, successMessage: "", errorMessage: "You can't go right"})
     }
   }
 
@@ -88,9 +88,9 @@ componentDidUpdate(prevProps, prevState){
     let stepsCounter = this.state.steps + 1;
 
     if(this.state.x > 1){
-      this.setState({...this.state, x: xCounter, steps: stepsCounter, errorMessage: ""})}
+      this.setState({...this.state, x: xCounter, steps: stepsCounter, errorMessage: "", successMessage: ""})}
     else {
-      this.setState({...this.state, errorMessage: "You can't go left"})
+      this.setState({...this.state, successMessage:"" ,errorMessage: "You can't go left"})
     }
   }
 
@@ -100,9 +100,9 @@ componentDidUpdate(prevProps, prevState){
     let stepsCounter = this.state.steps + 1;
 
     if(this.state.y < 3){
-      this.setState({...this.state, y: yCounter, steps: stepsCounter, errorMessage: ""})}
+      this.setState({...this.state, y: yCounter, steps: stepsCounter, errorMessage: "", successMessage: ""})}
     else {
-      this.setState({...this.state, errorMessage: "You can't go down"})
+      this.setState({...this.state, successMessage: "" ,errorMessage: "You can't go down"})
     }
   }
 
@@ -112,9 +112,9 @@ componentDidUpdate(prevProps, prevState){
     let stepsCounter = this.state.steps + 1;
     
     if(this.state.y > 1){
-      this.setState({...this.state, y: yCounter, steps: stepsCounter, errorMessage: ""})}
+      this.setState({...this.state, y: yCounter, steps: stepsCounter, errorMessage: "", successMessage: ""})}
     else {
-      this.setState({...this.state, errorMessage: "You can't go up"})
+      this.setState({...this.state, successMessage:"" ,errorMessage: "You can't go up"})
     }
   }
  
