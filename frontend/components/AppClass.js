@@ -17,39 +17,56 @@ const initialState = {
 }
 
 
+// built a component that maps and wrap that component in didupdate
+
+
+// class Squares extends React.Component {
+//   state = initialState
+
+//   render(){
+//     debugger
+//     return (
+      
+//       this.state.grid.map(location => {
+//         if(location === "B") {
+//           return <div className='square active'>B</div>
+//         } else {
+//           return <div className='square'></div>
+//         }
+//       })
+
+//     )
+//   }
+// }
+
+
 
 export default class AppClass extends React.Component {
 
   state = initialState;
 
 
-  // setGridLocation = () => {
-  //   if(this.state.x === 2 && this.state.y === 2){
-  //     console.log(this.state.grid[4])
-  //     this.setState({...this.state, grid: [this.state.grid[4], "B"]})
-  //   } else {
-  //     console.log('try again')
-  //   }
-  // }
-  
-  // MoveRight sets the grid to empty. I need a function after the if/else statement that sets the state of grid to be an array containing null expect where (ex: if(x === 1 && y === 1) {return ["B", null, null]})
+  newArray = () => { 
+    if(this.state.x === 1 && this.state.y === 1) {return ["B", null, null, null, null, null, null, null, null]}
+    else if(this.state.x === 2 && this.state.y === 1) {return [null, "B", null, null, null, null, null, null, null]}
+    else if(this.state.x === 3 && this.state.y === 1) {return [null, null, "B", null, null, null, null, null, null]}
+    else if(this.state.x === 1 && this.state.y === 2) {return [null, null, null, "B", null, null, null, null, null]}
+    else if(this.state.x === 2 && this.state.y === 2) {return [null, null, null, null, "B", null, null, null, null]}
+    else if(this.state.x === 3 && this.state.y === 2) {return [null, null, null, null, null, "B", null, null, null]}
+    else if(this.state.x === 1 && this.state.y === 3) {return [null, null, null, null, null, null, "B", null, null]}
+    else if(this.state.x === 2 && this.state.y === 3) {return [null, null, null, null, null, null, null, "B", null]}
+    else if(this.state.x === 3 && this.state.y === 3) {return [null, null, null, null, null, null, null, null, "B"]}
+    else {return "not found"}
+  }
 
-  // newArray = () => { 
-  //   if(this.state.x === 1 && this.state.y === 1) {return ["B", null, null, null, null, null, null, null, null]}
-  //   else if(this.state.x === 2 && this.state.y === 1) {return [null, "B", null, null, null, null, null, null, null]}
-  //   else if(this.state.x === 3 && this.state.y === 1) {return [null, null, "B", null, null, null, null, null, null]}
-  //   else if(this.state.x === 1 && this.state.y === 2) {return [null, null, null, "B", null, null, null, null, null]}
-  //   else if(this.state.x === 2 && this.state.y === 2) {return [null, null, null, null, "B", null, null, null, null]}
-  //   else if(this.state.x === 3 && this.state.y === 2) {return [null, null, null, null, null, "B", null, null, null]}
-  //   else if(this.state.x === 1 && this.state.y === 3) {return [null, null, null, null, null, null, "B", null, null]}
-  //   else if(this.state.x === 2 && this.state.y === 3) {return [null, null, null, null, null, null, null, "B", null]}
-  //   else if(this.state.x === 3 && this.state.y === 3) {return [null, null, null, null, null, null, null, null, "B"]}
-  //   else {return "not found"}
-  // }
-
-//  (1, 1) (2, 1) (3, 1)
-//  (1, 2) (2, 2) (3, 2)
-//  (1, 3) (2, 3) (3, 3)
+componentDidUpdate(prevProps, prevState){
+  if (prevState.x !== this.state.x || prevState.y !== this.state.y) {
+    this.setState({...this.state, grid: this.newArray()})
+    // console.log('Old grid:', prevState.grid, 'New grid', this.state.grid)
+  } else {
+    console.log('up to date')
+  }
+}
 
   moveRight = () => {
 
@@ -59,7 +76,7 @@ export default class AppClass extends React.Component {
   
 
     if(this.state.x < 3){
-      this.setState({...this.state, x: xCounter, steps: stepsCounter, errorMessage: "",})}
+      this.setState({...this.state, x: xCounter, steps: stepsCounter, errorMessage: ""})}
     else {
       this.setState({...this.state, errorMessage: "You can't go right"})
     }
@@ -100,8 +117,7 @@ export default class AppClass extends React.Component {
       this.setState({...this.state, errorMessage: "You can't go up"})
     }
   }
-
-
+ 
   reset = () => {
     this.setState(initialState)
   }
@@ -143,15 +159,14 @@ export default class AppClass extends React.Component {
           <h3 id="steps">You moved {this.state.steps} times</h3>
         </div>
         <div id="grid">
-          <div className="square"></div>
-          <div className="square"></div>
-          <div className="square"></div>
-          <div className="square"></div>
-          <div className="square active">B</div>
-          <div className="square"></div>
-          <div className="square"></div>
-          <div className="square"></div>
-          <div className="square"></div>
+          { this.state.grid.map(location => {
+            if(location === "B") {
+              return <div className='square active'>B</div>
+            } else {
+              return <div className='square'></div>
+            }
+            })
+          }
         </div>
         <div className="info">
           <h3 id="message">{this.state.errorMessage}{this.state.successMessage}</h3>
