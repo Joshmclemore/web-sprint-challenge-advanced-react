@@ -118,18 +118,7 @@ componentDidUpdate(prevProps, prevState){
     }
   }
  
-  reset = () => {
-    this.setState(initialState)
-  }
-
-  changeInput = (evt) => {
-    const { key, value } = evt.target
-    this.setState({
-      ...this.state,
-      email: evt.target.value 
-    })
-  }
-
+  
   onSubmit = (e) => {
     const newInfo = {
       "x": this.state.x,
@@ -144,28 +133,40 @@ componentDidUpdate(prevProps, prevState){
       this.setState({
         ...this.state,
         errorMessage: "",
-        successMessage: [...this.state.successMessage, res.data.message]
+        successMessage: [...this.state.successMessage, res.data.message],
+        email: "",
       })
     })
     .catch(err => { console.log(err)
       this.setState({
         ...this.state,
         successMessage: "",
-        errorMessage: err.response.data.message
+        errorMessage: err.response.data.message,
       })
     })
   }
+  
+  reset = () => {
+    this.setState(initialState)
+  }
 
-
-
+  changeInput = (evt) => {
+    const { value } = evt.target
+    this.setState({
+      ...this.state,
+      email: value 
+    })
+  }
+  
+  
   render() {
     const { className } = this.props
-
+    
     return (
       <div id="wrapper" className={className}>
         <div className="info">
           <h3 id="coordinates">Coordinates ({this.state.x}, {this.state.y})</h3>
-          <h3 id="steps">You moved {this.state.steps} times</h3>
+          <h3 id="steps">You moved {this.state.steps} {this.state.steps > 1 || this.state.steps === 0 ? "times" : "time"}</h3>
         </div>
         <div id="grid">
           { this.state.grid.map(location => {
@@ -188,7 +189,7 @@ componentDidUpdate(prevProps, prevState){
           <button id="reset" onClick={() => this.reset()}>reset</button>
         </div>
         <form onSubmit={this.onSubmit}>
-          <input id="email" type="email" onChange={this.changeInput} placeholder="type email"></input>
+          <input id="email" type="email" value={this.state.email} onChange={this.changeInput} placeholder="type email"></input>
           <input id="submit" type="submit"></input>
         </form>
       </div>

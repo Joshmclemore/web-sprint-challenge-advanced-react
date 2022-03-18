@@ -111,7 +111,8 @@ export default function AppFunctional(props) {
       setState({
         ...state,
         errorMessage: "",
-        successMessage: [...state.successMessage, res.data.message]
+        successMessage: [...state.successMessage, res.data.message],
+        email: "",
       })
     })
     .catch(err => { console.log(err)
@@ -132,7 +133,7 @@ export default function AppFunctional(props) {
     <div id="wrapper" className={props.className}>
       <div className="info">
         <h3 id="coordinates">Coordinates ({state.x}, {state.y})</h3>
-        <h3 id="steps">You moved {state.steps} times</h3>
+        <h3 id="steps">You moved {state.steps} {state.steps > 1 || state.steps === 0 ? "times" : "time"}</h3>
       </div>
       <div id="grid">
       { state.grid.map(location => {
@@ -153,7 +154,7 @@ export default function AppFunctional(props) {
           <button id="reset" onClick={() => reset()}>reset</button>
       </div>
       <form onSubmit={onSubmit}>
-          <input id="email" type="email" onChange={changeInput} placeholder="type email"></input>
+          <input id="email" type="email" value={state.email} onChange={changeInput} placeholder="type email"></input>
           <input id="submit" type="submit"></input>
         </form>
     </div>
